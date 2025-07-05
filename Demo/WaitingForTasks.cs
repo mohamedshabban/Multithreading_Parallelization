@@ -45,4 +45,26 @@
 
         }
     }
+    public class TaskException
+    {
+        public static void TaskFn()
+        {
+            Task t1 = Task.Factory.StartNew(() =>
+            throw new InvalidOperationException("Can't Do Anything!!") { Source = "T1" });
+            Task t2 = Task.Factory.StartNew(() =>
+            throw new AccessViolationException("AccessViolationException!!") { Source = "T2" });
+
+            try
+            {
+                Task.WaitAll(t1, t2);
+            }
+            catch (AggregateException ex)
+            {
+                foreach (var inner in ex.InnerExceptions)
+                    Console.WriteLine($"Exception {ex.GetType()} from Source {inner.Source}");
+            }
+            Console.WriteLine("Main Program has been Done!!");
+            Console.ReadKey();
+        }
+    }
 }

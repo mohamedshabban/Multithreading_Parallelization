@@ -4,7 +4,8 @@
     {
         static void Main()
         {
-            WaitingForTasks.TaskFn();
+            //WaitingForTasks.TaskFn();
+            TaskException.TaskFn();
         }
     }
 }
